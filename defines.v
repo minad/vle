@@ -1,0 +1,1 @@
+`define DEFAULT_WIDTH 32
