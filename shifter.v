@@ -2,12 +2,12 @@
 
 module shifter
   #(parameter n = `DEFAULT_WIDTH)
-   (output [n-1:0]      out,
-    input [n-1:0] 	a,
+   (output [n-1:0]        out,
+    input [n-1:0] 	  a,
     input [$clog2(n)-1:0] b,
-    input 		rot,
-    input 		left,
-    input 		sign);
+    input 		  rot,
+    input 		  left,
+    input 		  sign);
 
    wire [n-1:0] s[$clog2(n)+1:0];
    assign s[0] = a;
