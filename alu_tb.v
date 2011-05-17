@@ -38,8 +38,11 @@ module alu_tb;
       a = -1;
       b = -1;
 
-      //$monitor("%d - %d = %d (overflow=%b, sign=%b, zero=%b, carry=%b)", a, b, c, overflow, sign, zero, cout);
+      #1
+      $monitor("%d - %d = %d (overflow=%b, sign=%b, zero=%b, carry=%b)", a, b, c, overflow, sign, zero, cout);
+      op = `ALU_SUB;
+      a = 10;
+      b = 3;
 
-      //op = `ALU_ADD;
    end
 endmodule
