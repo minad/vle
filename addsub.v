@@ -11,18 +11,19 @@ module addsub
     output 	   cout,
     output  	   overflow);
 
-   wire   carry;
-   assign overflow = carry ^ cout;
+   wire   carry1, carry2;
+   assign overflow = carry1 ^ carry2;
+   assign cout = carry2 ^ sub;
 
    adder #(n-1) value(.sum(sum[n-2:0]),
 		      .a(a[n-2:0]),
 		      .b(b[n-2:0] ^ {n-1{sub}}),
-		      .cin(sub ^ cin),
-		      .cout(carry));
+		      .cin(cin ^ sub),
+		      .cout(carry1));
 
    adder #(1)   sign(.sum(sum[n-1]),
 		     .a(a[n-1]),
 		     .b(b[n-1] ^ sub),
-		     .cin(carry),
-		     .cout(cout));
+		     .cin(carry1),
+		     .cout(carry2));
 endmodule
