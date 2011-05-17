@@ -24,10 +24,11 @@ module alu
     input [n-1:0]  b,
     output [n-1:0] out,
     input [6:0]    op,
-    inout 	   carry,
+    input 	   cin,
+    output 	   cout,
     output 	   overflow,
-    output	   sign,
-    output	   zero);
+    output 	   sign,
+    output 	   zero);
 
    wire [n-1:0]    add_out;
    wire [n-1:0]    shifter_out;
@@ -40,21 +41,21 @@ module alu
    assign out = op & `ALU_INV_OUT ? ~o : o;
 
    // Arithmethic unit
-   addsub add(.sum(add_out),
-	      .a(a),
-	      .b(b),
-	      .sub(op[0]),
-	      .cin(carry),
-	      .cout(carry),
-	      .overflow(overflow));
+   addsub #(n) add(.sum(add_out),
+		   .a(a),
+		   .b(b),
+		   .sub(op[0]),
+		   .cin(cin),
+		   .cout(cout),
+		   .overflow(overflow));
 
    // Shifter
-   shifter shift(.out(shifter_out),
-		 .a(a),
-		 .b(b[$clog2(n)-1:0]),
-		 .rot(op[3]),
-		 .left(op[0]),
-		 .sign(op[1] & a[0]));
+   shifter #(n) shift(.out(shifter_out),
+		      .a(a),
+		      .b(b[$clog2(n)-1:0]),
+		      .rot(op[3]),
+		      .left(op[0]),
+		      .sign(op[1] & a[0]));
 
    always @*
      case (op)
