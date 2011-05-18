@@ -157,5 +157,26 @@ module alu_tb;
       op = `ALU_ASR;
       a = 8'b10111010;
       b = 2;
+
+      #1 //////////// MUL
+
+      $monitor("unsigned %d * %d = %d (overflow=%b)", a, b, c, overflow);
+
+      op = `ALU_MUL;
+      a = 10;
+      b = 12;
+
+      #1
+      a = 20;
+      b = 30;
+
+      #1 //////////// SMUL
+
+      $monitor("signed %d * %d = %d (overflow=%b)", sa, sb, sc, overflow);
+
+      op = `ALU_SMUL;
+      a = -3;
+      b = 7;
+
    end
 endmodule

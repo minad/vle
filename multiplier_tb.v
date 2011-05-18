@@ -28,5 +28,9 @@ module multiplier_tb;
       a = 7;
       b = -42;
 
+      #1
+      a = 10;
+      b = 12;
+
    end
 endmodule
