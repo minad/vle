@@ -44,7 +44,7 @@ module alu
    addsub #(n) add(.sum(add_out),
 		   .a(a),
 		   .b(b),
-		   .sub(op[0]),
+		   .sub(op[0]), // Subtraction is selected by bit 0
 		   .cin(cin),
 		   .cout(cout),
 		   .overflow(overflow));
@@ -53,9 +53,9 @@ module alu
    shifter #(n) shift(.out(shifter_out),
 		      .a(a),
 		      .b(b[$clog2(n)-1:0]),
-		      .rot(op[3]),
-		      .left(op[0]),
-		      .sign(op[1] & a[0]));
+		      .rot(op[3]),            // Rotation is selected by bit 0
+		      .left(op[0]),           // Left is selected by bit 0
+		      .sign(op[1] & a[n-1])); // ASR sign
 
    always @*
      case (op)

@@ -18,13 +18,12 @@ module alu_tb;
    wire signed [n-1:0] sc = c;
 
    initial begin
-      #1 /////////// UNSIGNED ADD
+      /////////// UNSIGNED ADD
       cin = 0;
       op = `ALU_ADD;
 
       $monitor("unsigned %d + %d = %d (zero=%b, carry=%b)", a, b, c, zero, cout);
 
-      #1
       a = 1;
       b = 1;
 
@@ -49,12 +48,11 @@ module alu_tb;
       b = 1;
 
       #1 /////////// SIGNED ADD
-      cin = 0;
-      op = `ALU_ADD;
 
       $monitor("signed %d + %d = %d (zero=%b, sign=%d, overflow=%b)", sa, sb, sc, zero, sign, overflow);
 
-      #1
+      cin = 0;
+      op = `ALU_ADD;
       a = 1;
       b = 1;
 
@@ -79,12 +77,11 @@ module alu_tb;
       b = 1;
 
       #1 /////////// UNSIGNED SUB
-      cin = 0;
-      op = `ALU_SUB;
 
       $monitor("unsigned %d - %d = %d (zero=%b, carry=%b)", a, b, c, zero, cout);
 
-      #1
+      cin = 0;
+      op = `ALU_SUB;
       a = 1;
       b = 1;
 
@@ -114,7 +111,6 @@ module alu_tb;
 
       $monitor("signed %d - %d = %d (zero=%b, sign=%d, overflow=%b)", sa, sb, sc, zero, sign, overflow);
 
-      #1
       a = 1;
       b = 1;
 
@@ -137,5 +133,29 @@ module alu_tb;
       #1
       a = -128;
       b = 1;
+
+      #1 //////////// LSL
+
+      $monitor("lsl %b << %d = %b", a, b, c);
+
+      op = `ALU_LSL;
+      a = 8'b00111010;
+      b = 2;
+
+      #1 //////////// LSR
+
+      $monitor("lsr %b >> %d = %b", a, b, c);
+
+      op = `ALU_LSR;
+      a = 8'b00111010;
+      b = 2;
+
+      #1 //////////// ASR
+
+      $monitor("asr %b >> %d = %b", a, b, c);
+
+      op = `ALU_ASR;
+      a = 8'b10111010;
+      b = 2;
    end
 endmodule
