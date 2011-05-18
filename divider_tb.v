@@ -1,13 +1,13 @@
-`include "multiplier.v"
+`include "divider.v"
 
-module multiplier_tb;
+module divider_tb;
    reg signed [7:0]   a, b;
-   wire signed [15:0] c;
+   wire signed [7:0]  c, d;
 
-   multiplier #(8) mul(.a(a), .b(b), .prod(c), .sign(1));
+   divider #(8) div(.a(a), .b(b), .quot(c), .rem(d), .sign(1));
 
    initial begin
-      $monitor("%d * %d = %d", a, b, c);
+      $monitor("%d / %d = %d (rem %d)", a, b, c, d);
 
       a = 1;
       b = 1;
@@ -32,5 +32,8 @@ module multiplier_tb;
       a = 10;
       b = 12;
 
+      #1
+      a = 127;
+      b = 37;
    end
 endmodule
