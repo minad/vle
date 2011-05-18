@@ -2,8 +2,8 @@
 
 module divider
   #(parameter n = `DEFAULT_WIDTH)
-   (output [n-1:0] quot,
-    output [n-1:0] rem,
+   (output [n-1:0] quotient,
+    output [n-1:0] reminder,
     input [n-1:0]  a,
     input [n-1:0]  b,
     input 	   sign);
@@ -15,8 +15,8 @@ module divider
    wire [n-1:0]      bv = bs ? -b : b;
    wire [n-1:0]      q, r;
 
-   assign quot = s ? -q : q;
-   assign rem  = s ? -r : r;
+   assign quotient = s ? -q : q;
+   assign reminder  = s ? -r : r;
 
 `ifdef USE_DIVIDE
    assign q = av / bv;
