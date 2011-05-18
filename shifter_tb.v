@@ -13,36 +13,16 @@ module shifter_tb;
       $display("Shifter Test Bench");
       $monitor("%b rol %d = %b | %b ror %d = %b | %b << %d = %b | %b >> %d = %b",
 	       a, b, rol_out, a, b, ror_out, a, b, lsl_out, a, b, lsr_out);
-
-      a = 8'b10000111;
-      b = 0;
-
-      #1
-      a = 8'b10000111;
-      b = 1;
-
-      #1
-      a = 8'b10000111;
-      b = 2;
-
-      #1
-      a = 8'b10000111;
-      b = 3;
-
-      #1
-      a = 8'b10000111;
-      b = 4;
-
-      #1
-      a = 8'b10000111;
-      b = 5;
-
-      #1
-      a = 8'b10000111;
-      b = 6;
-
-      #1
-      a = 8'b10000111;
-      b = 7;
    end
+
+   genvar i;
+   generate
+      for (i = 0; i < 8; i = i + 1) begin
+	 initial begin
+	    #i
+	    a = 8'b10000111;
+	    b = i;
+	 end
+      end
+   endgenerate
 endmodule
