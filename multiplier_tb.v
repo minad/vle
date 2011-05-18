@@ -1,3 +1,5 @@
+`include "multiplier.v"
+
 module multiplier_tb;
    reg signed [7:0]   a, b;
    wire signed [15:0] c;
