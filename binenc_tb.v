@@ -10,10 +10,11 @@ module binenc_tb;
 
    initial begin
       $monitor("%b %d", in, out);
+      in = 'b0;
+      #520 $finish;
+   end
 
-      for (i = 0; i < 8; i = i + 1) begin
-	 in = 1 << i;
-	 #1;
-      end
+   always begin
+     #2 in = in+1;
    end
 endmodule
