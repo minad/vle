@@ -1,5 +1,3 @@
-`include "binenc.v"
-
 module binenc_tb;
    reg [7:0]  in;
    wire [2:0] out;

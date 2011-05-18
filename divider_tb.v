@@ -1,5 +1,3 @@
-`include "divider.v"
-
 module divider_tb;
    reg signed [7:0]   a, b;
    wire signed [7:0]  c, d;

@@ -1,5 +1,3 @@
-`include "shifter.v"
-
 module shifter_tb;
    reg [7:0] a;
    reg [2:0] b;

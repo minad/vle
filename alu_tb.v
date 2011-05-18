@@ -1,5 +1,3 @@
-`include "alu.v"
-
 module alu_tb;
    localparam n = 8;
 
