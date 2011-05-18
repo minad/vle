@@ -5,7 +5,7 @@ module alu_tb;
 
    reg [n-1:0]  a;
    reg [n-1:0] 	b;
-   reg [6:0] 	op;
+   reg [5:0] 	op;
    reg 		cin;
    wire [n-1:0] c;
    wire		cout, overflow, sign, zero;
@@ -170,13 +170,20 @@ module alu_tb;
       a = 20;
       b = 30;
 
-      #1 //////////// SMUL
+      #1 //////////// SIGNED MUL
 
       $monitor("signed %d * %d = %d (overflow=%b)", sa, sb, sc, overflow);
 
-      op = `ALU_SMUL;
+      op = `ALU_MUL | `ALU_SIGNED;
       a = -3;
       b = 7;
 
+      #1 //////////// SIGNED MUL
+
+      $monitor("signed %d / %d = %d", sa, sb, sc);
+
+      op = `ALU_DIV | `ALU_SIGNED;
+      a = -7;
+      b = 3;
    end
 endmodule

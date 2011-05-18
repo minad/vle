@@ -2,7 +2,7 @@
 
 module multiplier
   #(parameter n = `DEFAULT_WIDTH)
-   (output [2*n-1:0] prod,
+   (output [2*n-1:0] product,
     input [n-1:0]    a,
     input [n-1:0]    b,
     input            sign);
@@ -15,11 +15,11 @@ module multiplier
 
 `ifdef USE_MULTIPLY
    wire [2*n-1:0] p = av * bv;
-   assign prod = s ? -p : p;
+   assign product = s ? -p : p;
 `else
    wire [2*n-1:0] p[n:0];
    assign p[0] = 0;
-   assign prod = s ? -p[n] : p[n];
+   assign product = s ? -p[n] : p[n];
 
    generate
       genvar i;
