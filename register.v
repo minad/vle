@@ -1,9 +1,11 @@
+`include "defines.v"
+
 module register
   #(parameter n = `DEFAULT_WIDTH)
    (input              clock,
     input 	       reset,
     input 	       load,
-    input [1:0]        select
+    input [1:0]        select,
     output reg [n-1:0] out,
     input [n-1:0]      in0,
     input [n-1:0]      in1,
