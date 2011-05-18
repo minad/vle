@@ -178,5 +178,12 @@ module alu_tb;
       a = -3;
       b = 7;
 
+      #1 //////////// SIGNED MUL
+
+      $monitor("signed %d / %d = %d", sa, sb, sc);
+
+      op = `ALU_DIV | `ALU_SIGNED;
+      a = -7;
+      b = 3;
    end
 endmodule

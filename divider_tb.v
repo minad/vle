@@ -4,10 +4,10 @@ module divider_tb;
    reg signed [7:0]   a, b;
    wire signed [7:0]  c, d;
 
-   divider #(8) div(.a(a), .b(b), .quot(c), .rem(d), .sign(1));
+   divider #(8) div(.a(a), .b(b), .quotient(c), .reminder(d), .sign(1));
 
    initial begin
-      $monitor("%d / %d = %d (rem %d)", a, b, c, d);
+      $monitor("%d / %d = %d (reminder %d)", a, b, c, d);
 
       a = 1;
       b = 1;

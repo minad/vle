@@ -108,7 +108,7 @@ module alu
    always @* begin
       overflow = 0;
       out = {n{1'b0}};
-      case (op)
+      case (op & `ALU_OPCODE_MASK)
 	`ALU_NOP, `ALU_AND, `ALU_OR, `ALU_XOR:
 	  out = logic_out;
 	`ALU_NOT:
