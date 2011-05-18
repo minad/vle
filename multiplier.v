@@ -9,12 +9,17 @@ module multiplier
 
    wire 	     as = sign & a[n-1];
    wire 	     bs = sign & b[n-1];
+   wire              s  = as ^ bs;
    wire [n-1:0]      av = as ? -a : a;
    wire [n-1:0]      bv = bs ? -b : b;
-   wire [2*n-1:0]    p[n:0];
 
+`ifdef USE_MULTIPLY
+   wire [2*n-1:0] p = av * bv;
+   assign prod = s ? -p : p;
+`else
+   wire [2*n-1:0] p[n:0];
    assign p[0] = 0;
-   assign prod = as ^ bs ? -p[n] : p[n];
+   assign prod = s ? -p[n] : p[n];
 
    generate
       genvar i;
@@ -22,4 +27,6 @@ module multiplier
 	 assign p[i+1] = (p[i] << 1) + (bv[n-i-1] ? av : 0);
       end
    endgenerate
+`endif
+
 endmodule
