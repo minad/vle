@@ -30,21 +30,41 @@ module generic_n_way_cache_tb ();
 	integer i, j;
 	always #1 clk = ~clk;
 	always #2 cnt = cnt+1;	
-
 	initial begin
-		$monitor("CNT:%d we:%b w_addr:%b in:%b re:%b r_addr:%b hit:%b out:%b twa:%b", cnt, we, write_addr, in, re, read_addr, hit, out, DUT.true_write_addr);
 		cnt = 0;
 		rst = 1'b1;
-		in = 'b0;
+		in = 'd10;
 		read_addr = 'b0;
-		write_addr = 'b0;
+		write_addr = 'd10;
 		re = 1'b0;
 		we = 1'b0;
 		clk = 1'b1;
-		#2050 $stop;
+		
+		#2 we = 1'b1;
+		rst = 1'b0;	
+		write_addr = 'b10101010;
+		in = 'b10101010;
+		#2 we = 'b0;
+		#2 re = 'b1;
+		read_addr = 'b10101010;
+		
+		#6 $stop;
 	end
-	
-	always #2 begin
+
+
+	initial for (i=0; i<512; i=i+1) begin
+		#2 $display("CNT:%d we:%b w_addr:%b in:%b re:%b r_addr:%b hit:%b out:%b", cnt, we, write_addr, in, re, read_addr, hit, out);
+		$display("valid		data		tag	history");
+		for (i=0; i<`ENTRIES/`WAYS; i=i+1) 
+			$display("%b    %b   %b    %b", DUT.ram_valid[i][`WAYS-1:0], DUT.ram_data[i][`WAYS*`DATA_WIDTH-1:0], DUT.ram_tag[i][`WAYS*(`ADDR_WIDTH-$clog2(`ENTRIES/`WAYS))-1:0], DUT.ram_history[i][`WAYS*$clog2(`WAYS)-1:0]);
+	end
+
+/*	always #2 begin
+		write_addr = $random;
+		in = $random;
+		we = 1'b1;
+	end*/
+	/*always #2 begin
 		if (cnt<513) begin
 			we = 1'b1;
 			write_addr = write_addr +1;
@@ -54,14 +74,13 @@ module generic_n_way_cache_tb ();
 			we = 1'b0;
 			read_addr = read_addr +1;
 		end
-	end	
+	end*/	
 
-	always #2 for (i=0; i<`ENTRIES/`WAYS; i=i+1) begin
-//		$display("%b", DUT.ram_history[i][`WAYS*$clog2(`WAYS)-1:0]);
-//		$display("%b", DUT.ram_valid[i][`WAYS-1:0]);
-//		$display("%b", DUT.ram_data[i][`WAYS*`DATA_WIDTH-1:0]);
-//		$display("%b", DUT.ram_tag[i][`WAYS*(`ADDR_WIDTH-`ENTRIES/`WAYS)-1:0]);
-
+	always #2 begin
+//			$display("%b", DUT.ram_valid[i][`WAYS-1:0]);
+//			$display("%b", DUT.ram_data[i][`WAYS*`DATA_WIDTH-1:0]);
+//			$display("%b", DUT.ram_tag[i][`WAYS*(`ADDR_WIDTH-`ENTRIES/`WAYS)-1:0]);
+//			$display("%b", DUT.ram_history[i][`WAYS*$clog2(`WAYS)-1:0]);
 	end
 	
 
